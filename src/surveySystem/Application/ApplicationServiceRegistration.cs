@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Application.Services.AuthenticatorService;
 using Application.Services.AuthService;
 using Application.Services.UsersService;
@@ -18,6 +18,9 @@ using NArchitecture.Core.ElasticSearch.Models;
 using NArchitecture.Core.Localization.Resource.Yaml.DependencyInjection;
 using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
+using Application.Services.Participations;
+using Application.Services.Questions;
+using Application.Services.Surveys;
 
 namespace Application;
 
@@ -56,6 +59,9 @@ public static class ApplicationServiceRegistration
 
         services.AddYamlResourceLocalization();
 
+        services.AddScoped<IParticipationService, ParticipationManager>();
+        services.AddScoped<IQuestionService, QuestionManager>();
+        services.AddScoped<ISurveyService, SurveyManager>();
         return services;
     }
 

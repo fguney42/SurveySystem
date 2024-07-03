@@ -1,7 +1,8 @@
-﻿using System.Reflection;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NArchitecture.Core.Security.Entities;
+using Domain.Entities;
 
 namespace Persistence.Contexts;
 
@@ -14,6 +15,9 @@ public class BaseDbContext : DbContext
     public DbSet<RefreshToken<int, int>> RefreshTokens { get; set; }
     public DbSet<User<int, int>> Users { get; set; }
     public DbSet<UserOperationClaim<int, int>> UserOperationClaims { get; set; }
+    public DbSet<Participation> Participations { get; set; }
+    public DbSet<Question> Questions { get; set; }
+    public DbSet<Survey> Surveys { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)
