@@ -1,6 +1,7 @@
 ﻿using NArchitecture.Core.Persistence.Repositories;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ public class Question : Entity<Guid>
     public Question()
     {
     }
-    public Question( string questionText)
+    public Question(string questionText)
     {
         QuestionText = questionText;
     }

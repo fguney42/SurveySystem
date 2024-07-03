@@ -29,6 +29,12 @@ public class OperationClaimBusinessRules : BaseBusinessRules
         if (operationClaim == null)
             await throwBusinessException(OperationClaimsMessages.NotExists);
     }
+    public async Task OperationClaimNameShouldExistWhenSelected(string name)
+    {
+        bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Name == name, enableTracking: false);
+        if (doesExist)
+            await throwBusinessException(OperationClaimsMessages.NotExists);
+    }
 
     public async Task OperationClaimIdShouldExistWhenSelected(int id)
     {

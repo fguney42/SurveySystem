@@ -1,10 +1,13 @@
+using System.Collections.Generic;
 using System.Reflection;
 using Application;
+using Application.Features.OperationClaims.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Attributes;
 using NArchitecture.Core.Security.Constants;
 using NArchitecture.Core.Security.Entities;
+using Org.BouncyCastle.Crypto.Agreement;
 
 namespace Persistence.EntityConfigurations;
 
@@ -26,6 +29,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
 
         builder.HasData(_seeds);
     }
+
 
     private IEnumerable<OperationClaim<int, int>> _seeds
     {
@@ -53,9 +57,14 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
         {
             FieldInfo[] typeFields = type.GetFields(BindingFlags.Public | BindingFlags.Static);
             IEnumerable<string> typeFieldsValues = typeFields.Select(field => field.GetValue(null)!.ToString()!);
-
+            typeFieldsValues = memberRoleAddLastIndex(typeFieldsValues.ToList());
             foreach (string value in typeFieldsValues)
                 yield return new() { Id = ++id, Name = value };
         }
+    }
+    private IEnumerable<string> memberRoleAddLastIndex(IList<string> typeFieldsValuesList)
+    {
+        typeFieldsValuesList.Add(OperationClaimsOperationClaims.MemberRole);
+        return (IEnumerable<string>)typeFieldsValuesList;
     }
 }

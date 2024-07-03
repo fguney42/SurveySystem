@@ -1,3 +1,5 @@
+using System.Data;
+
 namespace Application.Features.UserOperationClaims.Constants;
 
 public static class UserOperationClaimsMessages

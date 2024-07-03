@@ -1,11 +1,16 @@
 ﻿using Application.Features.Auth.Rules;
+using Application.Features.OperationClaims.Constants;
+using Application.Features.Users.Constants;
 using Application.Services.AuthService;
+using Application.Services.OperationClaims;
 using Application.Services.Repositories;
+using Application.Services.UserOperationClaims;
 using MediatR;
 using NArchitecture.Core.Application.Dtos;
 using NArchitecture.Core.Security.Entities;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
+using Org.BouncyCastle.Security;
 
 namespace Application.Features.Auth.Commands.Register;
 
@@ -31,12 +36,16 @@ public class RegisterCommand : IRequest<RegisteredResponse>
         private readonly IUserRepository _userRepository;
         private readonly IAuthService _authService;
         private readonly AuthBusinessRules _authBusinessRules;
+        private readonly IOperationClaimService _operationClaimService;
+        private readonly IUserOperationClaimService _userOperationClaimService;
 
-        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService, AuthBusinessRules authBusinessRules)
+        public RegisterCommandHandler(IUserRepository userRepository, IAuthService authService, IOperationClaimService operationClaimService, AuthBusinessRules authBusinessRules, IUserOperationClaimService userOperationClaimService)
         {
             _userRepository = userRepository;
             _authService = authService;
             _authBusinessRules = authBusinessRules;
+            _operationClaimService = operationClaimService;
+            _userOperationClaimService = userOperationClaimService;
         }
 
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -56,6 +65,14 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                     PasswordSalt = passwordSalt,
                 };
             User<int, int> createdUser = await _userRepository.AddAsync(newUser);
+
+            UserOperationClaim<int,int> userOperationClaim = new ()
+            {
+                OperationClaimId =
+                await _operationClaimService.GetOperationClaimIdByName(OperationClaimsOperationClaims.MemberRole)
+            };
+
+            await _userOperationClaimService.AddAsync(userOperationClaim);
 
             AccessToken createdAccessToken = await _authService.CreateAccessToken(createdUser);
 

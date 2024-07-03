@@ -21,6 +21,8 @@ using NArchitecture.Core.Mailing.MailKit;
 using Application.Services.Participations;
 using Application.Services.Questions;
 using Application.Services.Surveys;
+using Application.Services.OperationClaims;
+using Application.Services.UserOperationClaims;
 
 namespace Application;
 
@@ -56,6 +58,8 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IAuthService, AuthManager>();
         services.AddScoped<IAuthenticatorService, AuthenticatorManager>();
         services.AddScoped<IUserService, UserManager>();
+        services.AddScoped<IOperationClaimService, OperationClaimManager>();
+        services.AddScoped<IUserOperationClaimService, UserOperationClaimManager>();
 
         services.AddYamlResourceLocalization();
 

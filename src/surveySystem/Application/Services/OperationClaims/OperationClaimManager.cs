@@ -63,6 +63,15 @@ public class OperationClaimManager : IOperationClaimService
         return operationClaimList;
     }
 
+    public async Task<int> GetOperationClaimIdByName(string operationClaimName)
+    {
+        await _operationClaimBusinessRules.OperationClaimNameShouldExistWhenSelected(operationClaimName);
+        
+        OperationClaim<int,int>? operationClaim = 
+            await _operationClaimRepository!.GetAsync(oc => oc.Name.Equals(operationClaimName));
+        return operationClaim!.Id;
+    }
+
     public async Task<OperationClaim<int, int>> AddAsync(OperationClaim<int, int> operationClaim)
     {
         await _operationClaimBusinessRules.OperationClaimNameShouldNotExistWhenCreating(operationClaim.Name);

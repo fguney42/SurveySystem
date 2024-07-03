@@ -25,7 +25,7 @@ public interface IOperationClaimService
         bool enableTracking = true,
         CancellationToken cancellationToken = default
     );
-
+    Task<int> GetOperationClaimIdByName(string operationClaimName);
     Task<OperationClaim<int, int>> AddAsync(OperationClaim<int, int> operationClaim);
     Task<OperationClaim<int, int>> UpdateAsync(OperationClaim<int, int> operationClaim);
     Task<OperationClaim<int, int>> DeleteAsync(OperationClaim<int, int> operationClaim, bool permanent = false);
