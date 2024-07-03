@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Participations.Constants.ParticipationsOperationClaims;
+using Application.Features.OperationClaims.Constants;
 
 namespace Application.Features.Participations.Commands.Create;
 
@@ -18,7 +19,7 @@ public class CreateParticipationCommand : IRequest<CreatedParticipationResponse>
     public Guid UserId { get; set; }
     public Guid SurveyId { get; set; }
 
-    public string[] Roles => [Admin, Write, ParticipationsOperationClaims.Create];
+    public string[] Roles => [Admin, Write, ParticipationsOperationClaims.Create, OperationClaimsOperationClaims.MemberRole];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

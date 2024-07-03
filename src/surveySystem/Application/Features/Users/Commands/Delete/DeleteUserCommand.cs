@@ -1,3 +1,4 @@
+using Application.Features.OperationClaims.Constants;
 using Application.Features.Users.Constants;
 using Application.Features.Users.Rules;
 using Application.Services.Repositories;
@@ -13,7 +14,7 @@ public class DeleteUserCommand : IRequest<DeletedUserResponse>, ISecuredRequest
 {
     public int Id { get; set; }
 
-    public string[] Roles => new[] { Admin, Write, UsersOperationClaims.Delete };
+    public string[] Roles => new[] { Admin, Write, UsersOperationClaims.Delete,OperationClaimsOperationClaims.MemberRole};
 
     public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, DeletedUserResponse>
     {

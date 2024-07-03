@@ -1,8 +1,10 @@
+using Application.Features.OperationClaims.Constants;
 using Application.Features.Users.Constants;
 using Application.Features.Users.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using NArchitecture.Core.Security.Entities;
 using NArchitecture.Core.Security.Hashing;
@@ -13,8 +15,8 @@ namespace Application.Features.Users.Commands.Update;
 public class UpdateUserCommand : IRequest<UpdatedUserResponse>, ISecuredRequest
 {
     public int Id { get; set; }
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
 
@@ -35,7 +37,7 @@ public class UpdateUserCommand : IRequest<UpdatedUserResponse>, ISecuredRequest
         Password = password;
     }
 
-    public string[] Roles => new[] { Admin, Write, UsersOperationClaims.Update };
+    public string[] Roles => new[] { Admin, Write, UsersOperationClaims.Update,OperationClaimsOperationClaims.MemberRole};
 
     public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, UpdatedUserResponse>
     {

@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 namespace Domain.Entities;
 public class Participation : Entity<Guid>
 {
-    public virtual User<int, int>? User { get; set; }
-    public virtual Survey? Survey { get; set; }
-    public int UserId { get; set; }
-    public Guid SurveyId { get; set; }
     public string Answer { get; set; }
+    public virtual Member? Member { get; set; }
+    public virtual Survey? Survey { get; set; }
+    public Guid MemberId { get; set; }
+    public Guid SurveyId { get; set; }
     public Participation()
     {
     }

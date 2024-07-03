@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Participations.Constants.ParticipationsOperationClaims;
+using Application.Features.OperationClaims.Constants;
 
 namespace Application.Features.Participations.Commands.Update;
 
@@ -19,7 +20,7 @@ public class UpdateParticipationCommand : IRequest<UpdatedParticipationResponse>
     public Guid UserId { get; set; }
     public Guid SurveyId { get; set; }
 
-    public string[] Roles => [Admin, Write, ParticipationsOperationClaims.Update];
+    public string[] Roles => [Admin, Write, ParticipationsOperationClaims.Update, OperationClaimsOperationClaims.MemberRole];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

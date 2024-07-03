@@ -12,7 +12,7 @@ public class ParticipationConfiguration : IEntityTypeConfiguration<Participation
 
         builder.Property(p => p.Id).HasColumnName("Id").IsRequired();
         builder.Property(p => p.Answer).HasColumnName("Answer");
-        builder.Property(p => p.UserId).HasColumnName("UserId");
+        builder.Property(p => p.MemberId).HasColumnName("MemberId");
         builder.Property(p => p.SurveyId).HasColumnName("SurveyId");
         builder.Property(p => p.CreatedDate).HasColumnName("CreatedDate").IsRequired();
         builder.Property(p => p.UpdatedDate).HasColumnName("UpdatedDate");

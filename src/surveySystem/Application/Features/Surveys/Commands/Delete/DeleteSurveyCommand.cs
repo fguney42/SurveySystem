@@ -1,5 +1,4 @@
 using Application.Features.Surveys.Constants;
-using Application.Features.Surveys.Constants;
 using Application.Features.Surveys.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -10,14 +9,14 @@ using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Surveys.Constants.SurveysOperationClaims;
+using Application.Features.OperationClaims.Constants;
 
 namespace Application.Features.Surveys.Commands.Delete;
 
 public class DeleteSurveyCommand : IRequest<DeletedSurveyResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid Id { get; set; }
-
-    public string[] Roles => [Admin, Write, SurveysOperationClaims.Delete];
+    public string[] Roles => [Admin, Write, SurveysOperationClaims.Delete, OperationClaimsOperationClaims.MemberRole];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

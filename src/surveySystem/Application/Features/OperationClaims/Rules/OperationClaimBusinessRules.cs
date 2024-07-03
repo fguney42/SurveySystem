@@ -32,7 +32,7 @@ public class OperationClaimBusinessRules : BaseBusinessRules
     public async Task OperationClaimNameShouldExistWhenSelected(string name)
     {
         bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Name == name, enableTracking: false);
-        if (doesExist)
+        if (doesExist == false)
             await throwBusinessException(OperationClaimsMessages.NotExists);
     }
 

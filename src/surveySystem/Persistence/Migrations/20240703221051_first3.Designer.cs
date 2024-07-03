@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240703221051_first3")]
+    partial class first3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,40 +29,33 @@ namespace Persistence.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("Id");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreatedDate");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DeletedDate");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("FirstName");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("LastName");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("UpdatedDate");
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
-                        .HasColumnType("int")
-                        .HasColumnName("UserId");
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Members", (string)null);
+                    b.ToTable("Member");
                 });
 
             modelBuilder.Entity("Domain.Entities.Participation", b =>
@@ -506,71 +502,29 @@ namespace Persistence.Migrations
                         {
                             Id = 45,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Members.Admin"
+                            Name = "Auth.Admin"
                         },
                         new
                         {
                             Id = 46,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Members.Read"
+                            Name = "Auth.Write"
                         },
                         new
                         {
                             Id = 47,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Members.Write"
+                            Name = "Auth.Read"
                         },
                         new
                         {
                             Id = 48,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Members.Create"
-                        },
-                        new
-                        {
-                            Id = 49,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Members.Update"
-                        },
-                        new
-                        {
-                            Id = 50,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Members.Delete"
-                        },
-                        new
-                        {
-                            Id = 51,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Member"
-                        },
-                        new
-                        {
-                            Id = 52,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Auth.Admin"
-                        },
-                        new
-                        {
-                            Id = 53,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Auth.Write"
-                        },
-                        new
-                        {
-                            Id = 54,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Auth.Read"
-                        },
-                        new
-                        {
-                            Id = 55,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Auth.RevokeToken"
                         },
                         new
                         {
-                            Id = 56,
+                            Id = 49,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Member"
                         });
@@ -730,8 +684,8 @@ namespace Persistence.Migrations
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@nArchitecture.kodlama.io",
-                            PasswordHash = new byte[] { 90, 42, 147, 135, 188, 54, 76, 87, 146, 142, 154, 25, 212, 67, 138, 80, 42, 127, 167, 223, 167, 174, 44, 202, 39, 222, 25, 42, 49, 226, 104, 229, 110, 87, 239, 166, 0, 179, 15, 157, 169, 94, 22, 106, 178, 210, 167, 149, 143, 178, 10, 142, 153, 52, 10, 163, 60, 160, 5, 8, 75, 171, 238, 51 },
-                            PasswordSalt = new byte[] { 206, 202, 176, 138, 156, 11, 130, 60, 252, 229, 255, 245, 228, 234, 156, 108, 22, 102, 153, 204, 5, 252, 126, 195, 127, 218, 9, 97, 147, 4, 244, 166, 31, 116, 86, 98, 166, 31, 133, 38, 24, 179, 208, 75, 183, 228, 72, 3, 0, 98, 240, 40, 215, 46, 197, 90, 169, 232, 131, 242, 172, 72, 142, 159, 3, 178, 75, 46, 60, 80, 136, 214, 233, 205, 115, 159, 207, 175, 77, 98, 195, 254, 82, 167, 143, 31, 114, 135, 11, 74, 144, 113, 187, 22, 81, 134, 96, 155, 160, 225, 196, 48, 115, 211, 237, 125, 77, 234, 195, 202, 36, 43, 140, 161, 99, 120, 15, 215, 236, 99, 86, 133, 126, 113, 246, 231, 188, 140 }
+                            PasswordHash = new byte[] { 95, 160, 62, 56, 20, 60, 224, 155, 53, 169, 95, 208, 33, 4, 144, 11, 92, 45, 184, 185, 242, 2, 103, 190, 167, 189, 239, 248, 49, 212, 160, 233, 41, 205, 80, 16, 107, 78, 137, 18, 195, 63, 101, 206, 100, 122, 199, 128, 237, 152, 112, 111, 130, 57, 123, 238, 149, 57, 118, 205, 86, 255, 134, 216 },
+                            PasswordSalt = new byte[] { 148, 132, 51, 41, 68, 203, 142, 197, 229, 86, 21, 140, 95, 46, 132, 68, 7, 237, 33, 191, 47, 254, 40, 70, 55, 213, 69, 51, 38, 82, 247, 209, 217, 148, 202, 6, 102, 55, 224, 227, 126, 26, 254, 225, 17, 41, 179, 237, 203, 155, 208, 73, 158, 43, 155, 92, 203, 82, 48, 111, 89, 6, 199, 210, 141, 38, 24, 194, 222, 181, 19, 218, 88, 43, 212, 22, 170, 153, 185, 205, 200, 210, 16, 242, 123, 21, 86, 39, 251, 230, 116, 116, 184, 3, 63, 230, 151, 38, 142, 74, 154, 165, 44, 94, 199, 13, 57, 252, 68, 217, 234, 31, 41, 88, 115, 121, 48, 213, 34, 51, 106, 173, 41, 169, 2, 109, 92, 92 }
                         });
                 });
 
