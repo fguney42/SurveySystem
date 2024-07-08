@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Questions.Constants.QuestionsOperationClaims;
+using Application.Features.OperationClaims.Constants;
 
 namespace Application.Features.Questions.Queries.GetList;
 
@@ -16,7 +17,7 @@ public class GetListQuestionQuery : IRequest<GetListResponse<GetListQuestionList
 {
     public PageRequest PageRequest { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    public string[] Roles => [Admin, Read, OperationClaimsOperationClaims.MemberRole];
 
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListQuestions({PageRequest.PageIndex},{PageRequest.PageSize})";

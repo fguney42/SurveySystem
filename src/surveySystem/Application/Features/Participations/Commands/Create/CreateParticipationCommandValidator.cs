@@ -7,7 +7,7 @@ public class CreateParticipationCommandValidator : AbstractValidator<CreateParti
     public CreateParticipationCommandValidator()
     {
         RuleFor(c => c.Answer).NotEmpty();
-        RuleFor(c => c.UserId).NotEmpty();
+        RuleFor(c => c.MemberId).NotEmpty();
         RuleFor(c => c.SurveyId).NotEmpty();
     }
 }

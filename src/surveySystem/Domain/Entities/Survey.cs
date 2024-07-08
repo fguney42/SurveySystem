@@ -12,6 +12,7 @@ namespace Domain.Entities
         public string Title { get; set; }
         public virtual IList<Question>? Questions { get; set; }
         public virtual IList<Participation>? Participations { get; set; }
+
         public Survey()
         {
         }

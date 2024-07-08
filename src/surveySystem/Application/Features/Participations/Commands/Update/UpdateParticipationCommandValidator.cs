@@ -8,7 +8,7 @@ public class UpdateParticipationCommandValidator : AbstractValidator<UpdateParti
     {
         RuleFor(c => c.Id).NotEmpty();
         RuleFor(c => c.Answer).NotEmpty();
-        RuleFor(c => c.UserId).NotEmpty();
+        RuleFor(c => c.MemberId).NotEmpty();
         RuleFor(c => c.SurveyId).NotEmpty();
     }
 }

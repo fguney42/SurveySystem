@@ -19,6 +19,7 @@ public class BaseDbContext : DbContext
     public DbSet<Question> Questions { get; set; }
     public DbSet<Survey> Surveys { get; set; }
     public DbSet<Member> Members { get; set; }
+    public DbSet<ParticipationResult> ParticipationResults { get; set; }
 
     public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration)
         : base(dbContextOptions)

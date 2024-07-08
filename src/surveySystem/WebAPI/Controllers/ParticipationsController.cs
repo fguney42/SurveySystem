@@ -6,6 +6,7 @@ using Application.Features.Participations.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Domain.Entities;
 
 namespace WebAPI.Controllers;
 
@@ -17,7 +18,6 @@ public class ParticipationsController : BaseController
     public async Task<IActionResult> Add([FromBody] CreateParticipationCommand createParticipationCommand)
     {
         CreatedParticipationResponse response = await Mediator.Send(createParticipationCommand);
-
         return Created(uri: "", response);
     }
 

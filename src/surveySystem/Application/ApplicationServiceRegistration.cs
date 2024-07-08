@@ -24,6 +24,7 @@ using Application.Services.Surveys;
 using Application.Services.OperationClaims;
 using Application.Services.UserOperationClaims;
 using Application.Services.Members;
+using Application.Services.ParticipationResults;
 
 namespace Application;
 
@@ -68,6 +69,7 @@ public static class ApplicationServiceRegistration
         services.AddScoped<IQuestionService, QuestionManager>();
         services.AddScoped<ISurveyService, SurveyManager>();
         services.AddScoped<IMemberService, MemberManager>();
+        services.AddScoped<IParticipationResultService, ParticipationResultManager>();
         return services;
     }
 
