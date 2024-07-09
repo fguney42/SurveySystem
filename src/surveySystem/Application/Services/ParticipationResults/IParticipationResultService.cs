@@ -28,5 +28,5 @@ public interface IParticipationResultService
     Task<ParticipationResult> UpdateAsync(ParticipationResult participationResult);
     Task<ParticipationResult> DeleteAsync(ParticipationResult participationResult, bool permanent = false);
 
-    public Task<ParticipationResult> UpdateOrCreateByParticipationResult(Guid surveyId);
+    //public Task<ParticipationResult> UpdateOrCreateByParticipationResult(Guid surveyId);
 }

@@ -20,4 +20,17 @@ public class ParticipationResultRepository : EfRepositoryBase<ParticipationResul
 
         return (participationResult!.Result + 1);
     }
+    public async Task<double> CalculatePercentYes(int totalNoAnswer, int totalYesAnswer)
+    {
+        if (totalYesAnswer > 0)
+            return ((double)totalYesAnswer / (double)(totalNoAnswer + totalYesAnswer)) * 100; 
+        return 0;
+    }
+    public async Task<double> CalculatePercentNo(int totalNoAnswer, int totalYesAnswer)
+    {
+        if (totalNoAnswer > 0)
+            return ((double)totalNoAnswer / (double)(totalNoAnswer + totalYesAnswer)) * 100;
+        return 0;
+
+    }
 }

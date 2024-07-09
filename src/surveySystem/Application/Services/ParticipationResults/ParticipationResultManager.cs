@@ -63,12 +63,12 @@ public class ParticipationResultManager : IParticipationResultService
         return addedParticipationResult;
     }
 
-    public async Task<ParticipationResult> UpdateOrCreateByParticipationResult(Guid surveyId)
-    {
-        ParticipationResult? participationResult = await _participationResultBusinessRules.CheckIfUpdateOrCreateParticipationResult(surveyId);
+    //public async Task<ParticipationResult> UpdateOrCreateByParticipationResult(Guid surveyId)
+    //{
+    //    ParticipationResult? participationResult = await _participationResultBusinessRules.CheckIfUpdateOrCreateParticipationResult(surveyId);
 
-        return participationResult;
-    }
+    //    return participationResult;
+    //}
     public async Task<ParticipationResult> UpdateAsync(ParticipationResult participationResult)
     {
         ParticipationResult updatedParticipationResult = await _participationResultRepository.UpdateAsync(participationResult);

@@ -45,7 +45,7 @@ public class CreateParticipationCommand : MediatR.IRequest<CreatedParticipationR
         public async Task<CreatedParticipationResponse> Handle(CreateParticipationCommand request, CancellationToken cancellationToken)
         {
             await _participationBusinessRules.CheckIfParticipationAlreadyExists(request.MemberId, request.SurveyId);
-            Participation participation = _mapper.Map<Participation>(request);
+            Participation participation = _mapper.Map<Participation>(request); 
             await _participationRepository.AddAsync(participation);
             CreatedParticipationResponse response = _mapper.Map<CreatedParticipationResponse>(participation);
             return response;

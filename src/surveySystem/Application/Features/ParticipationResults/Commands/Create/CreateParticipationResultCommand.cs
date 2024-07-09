@@ -17,7 +17,7 @@ namespace Application.Features.ParticipationResults.Commands.Create;
 public class CreateParticipationResultCommand : IRequest<CreatedParticipationResultResponse>, ISecuredRequest,ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid SurveyId { get; set; }
-
+    public string Answer {  get; set; }
     public string[] Roles => [Admin, Write, ParticipationResultsOperationClaims.Create,OperationClaimsOperationClaims.MemberRole];
 
     public bool BypassCache { get; }
@@ -42,7 +42,7 @@ public class CreateParticipationResultCommand : IRequest<CreatedParticipationRes
         {
             ParticipationResult participationResult = _mapper.Map<ParticipationResult>(request);
 
-            await _participationResultBusinessRules.CheckIfUpdateOrCreateParticipationResult(request.SurveyId);
+            await _participationResultBusinessRules.CheckIfUpdateOrCreateParticipationResult(request.SurveyId,request.Answer);
 
             CreatedParticipationResultResponse response = _mapper.Map<CreatedParticipationResultResponse>(participationResult);
             return response;
