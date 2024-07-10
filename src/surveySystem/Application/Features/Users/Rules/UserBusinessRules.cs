@@ -25,7 +25,7 @@ public class UserBusinessRules : BaseBusinessRules
         throw new BusinessException(message);
     }
 
-    public async Task UserShouldBeExistsWhenSelected(User<int, int>? user)
+    public async Task UserShouldBeExistsWhenSelected(User<int>? user)
     {
         if (user == null)
             await throwBusinessException(UsersMessages.UserDontExists);
@@ -33,12 +33,12 @@ public class UserBusinessRules : BaseBusinessRules
 
     public async Task UserIdShouldBeExistsWhenSelected(int id)
     {
-        bool doesExist = await _userRepository.AnyAsync(predicate: u => u.Id == id, enableTracking: false);
+        bool doesExist = await _userRepository.AnyAsync(predicate: u => u.Id == id);
         if (doesExist)
             await throwBusinessException(UsersMessages.UserDontExists);
     }
 
-    public async Task UserPasswordShouldBeMatched(User<int, int> user, string password)
+    public async Task UserPasswordShouldBeMatched(User<int> user, string password)
     {
         if (!HashingHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
             await throwBusinessException(UsersMessages.PasswordDontMatch);
@@ -46,14 +46,14 @@ public class UserBusinessRules : BaseBusinessRules
 
     public async Task UserEmailShouldNotExistsWhenInsert(string email)
     {
-        bool doesExists = await _userRepository.AnyAsync(predicate: u => u.Email == email, enableTracking: false);
+        bool doesExists = await _userRepository.AnyAsync(predicate: u => u.Email == email);
         if (doesExists)
             await throwBusinessException(UsersMessages.UserMailAlreadyExists);
     }
 
     public async Task UserEmailShouldNotExistsWhenUpdate(int id, string email)
     {
-        bool doesExists = await _userRepository.AnyAsync(predicate: u => u.Id != id && u.Email == email, enableTracking: false);
+        bool doesExists = await _userRepository.AnyAsync(predicate: u => u.Id != id && u.Email == email);
         if (doesExists)
             await throwBusinessException(UsersMessages.UserMailAlreadyExists);
     }

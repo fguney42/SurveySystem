@@ -13,7 +13,7 @@ public class Member : Entity<Guid>
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public int UserId { get; set; }
-    public virtual User<int, int>? User { get; set; }
+    public virtual User<int>? User { get; set; }
     public Member()
     {
 

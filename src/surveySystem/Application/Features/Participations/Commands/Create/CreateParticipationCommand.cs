@@ -16,7 +16,7 @@ namespace Application.Features.Participations.Commands.Create;
 public class CreateParticipationCommand : IRequest<CreatedParticipationResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public string Answer { get; set; }
-    public Guid UserId { get; set; }
+    public Guid MemberId { get; set; }
     public Guid SurveyId { get; set; }
 
     public string[] Roles => [Admin, Write, ParticipationsOperationClaims.Create, OperationClaimsOperationClaims.MemberRole];

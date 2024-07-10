@@ -1,8 +1,7 @@
-using NArchitecture.Core.Security.Attributes;
 
 namespace Application.Features.Questions.Constants;
 
-[OperationClaimConstants]
+
 public static class QuestionsOperationClaims
 {
     private const string _section = "Questions";

@@ -6,6 +6,7 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Surveys.Constants.SurveysOperationClaims;
+using Application.Features.OperationClaims.Constants;
 
 namespace Application.Features.Surveys.Queries.GetById;
 
@@ -13,7 +14,7 @@ public class GetByIdSurveyQuery : IRequest<GetByIdSurveyResponse>, ISecuredReque
 {
     public Guid Id { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    public string[] Roles => [Admin, Read, OperationClaimsOperationClaims.MemberRole];
 
     public class GetByIdSurveyQueryHandler : IRequestHandler<GetByIdSurveyQuery, GetByIdSurveyResponse>
     {

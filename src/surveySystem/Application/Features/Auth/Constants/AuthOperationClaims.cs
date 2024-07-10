@@ -1,8 +1,7 @@
-﻿using NArchitecture.Core.Security.Attributes;
+﻿
 
 namespace Application.Features.Auth.Constants;
 
-[OperationClaimConstants]
 public static class AuthOperationClaims
 {
     private const string _section = "Auth";

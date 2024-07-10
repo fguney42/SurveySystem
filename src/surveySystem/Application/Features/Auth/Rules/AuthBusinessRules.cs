@@ -26,64 +26,64 @@ public class AuthBusinessRules : BaseBusinessRules
         throw new BusinessException(message);
     }
 
-    public async Task EmailAuthenticatorShouldBeExists(EmailAuthenticator<int, int>? emailAuthenticator)
+    public async Task EmailAuthenticatorShouldBeExists(EmailAuthenticator<int>? emailAuthenticator)
     {
         if (emailAuthenticator is null)
             await throwBusinessException(AuthMessages.EmailAuthenticatorDontExists);
     }
 
-    public async Task OtpAuthenticatorShouldBeExists(OtpAuthenticator<int, int>? otpAuthenticator)
+    public async Task OtpAuthenticatorShouldBeExists(OtpAuthenticator<int>? otpAuthenticator)
     {
         if (otpAuthenticator is null)
             await throwBusinessException(AuthMessages.OtpAuthenticatorDontExists);
     }
 
-    public async Task OtpAuthenticatorThatVerifiedShouldNotBeExists(OtpAuthenticator<int, int>? otpAuthenticator)
+    public async Task OtpAuthenticatorThatVerifiedShouldNotBeExists(OtpAuthenticator<int>? otpAuthenticator)
     {
         if (otpAuthenticator is not null && otpAuthenticator.IsVerified)
             await throwBusinessException(AuthMessages.AlreadyVerifiedOtpAuthenticatorIsExists);
     }
 
-    public async Task EmailAuthenticatorActivationKeyShouldBeExists(EmailAuthenticator<int, int> emailAuthenticator)
+    public async Task EmailAuthenticatorActivationKeyShouldBeExists(EmailAuthenticator<int> emailAuthenticator)
     {
         if (emailAuthenticator.ActivationKey is null)
             await throwBusinessException(AuthMessages.EmailActivationKeyDontExists);
     }
 
-    public async Task UserShouldBeExistsWhenSelected(User<int, int>? user)
+    public async Task UserShouldBeExistsWhenSelected(User<int>? user)
     {
         if (user == null)
             await throwBusinessException(AuthMessages.UserDontExists);
     }
 
-    public async Task UserShouldNotBeHaveAuthenticator(User<int, int> user)
+    public async Task UserShouldNotBeHaveAuthenticator(User<int> user)
     {
         if (user.AuthenticatorType != AuthenticatorType.None)
             await throwBusinessException(AuthMessages.UserHaveAlreadyAAuthenticator);
     }
 
-    public async Task RefreshTokenShouldBeExists(RefreshToken<int, int>? refreshToken)
+    public async Task RefreshTokenShouldBeExists(RefreshToken<int,int>? refreshToken)
     {
         if (refreshToken == null)
             await throwBusinessException(AuthMessages.RefreshDontExists);
     }
 
-    public async Task RefreshTokenShouldBeActive(RefreshToken<int, int> refreshToken)
+    public async Task RefreshTokenShouldBeActive(RefreshToken<int,int>? refreshToken)
     {
-        if (refreshToken.RevokedDate != null && DateTime.UtcNow >= refreshToken.ExpiresDate)
+        if (refreshToken.RevokedDate != null && DateTime.UtcNow >= refreshToken.ExpirationDate)
             await throwBusinessException(AuthMessages.InvalidRefreshToken);
     }
 
     public async Task UserEmailShouldBeNotExists(string email)
     {
-        bool doesExists = await _userRepository.AnyAsync(predicate: u => u.Email == email, enableTracking: false);
+        bool doesExists = await _userRepository.AnyAsync(predicate: u => u.Email == email);
         if (doesExists)
             await throwBusinessException(AuthMessages.UserMailAlreadyExists);
     }
 
     public async Task UserPasswordShouldBeMatch(int id, string password)
     {
-        User<int, int>? user = await _userRepository.GetAsync(predicate: u => u.Id == id, enableTracking: false);
+        User<int>? user = await _userRepository.GetAsync(predicate: u => u.Id == id, enableTracking: false);
         await UserShouldBeExistsWhenSelected(user);
         if (!HashingHelper.VerifyPasswordHash(password, user!.PasswordHash, user.PasswordSalt))
             await throwBusinessException(AuthMessages.PasswordDontMatch);

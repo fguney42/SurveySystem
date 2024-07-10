@@ -47,8 +47,11 @@ public class SurveysController : BaseController
     [HttpGet]
     public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
     {
+       int userId =  getUserIdFromRequest();
         GetListSurveyQuery getListSurveyQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListSurveyListItemDto> response = await Mediator.Send(getListSurveyQuery);
         return Ok(response);
+        
+        
     }
 }
