@@ -25,6 +25,7 @@ public static class PersistenceServiceRegistration
         services.AddScoped<IQuestionRepository, QuestionRepository>();
         services.AddScoped<ISurveyRepository, SurveyRepository>();
         services.AddScoped<IMemberRepository, MemberRepository>();
+        services.AddScoped<IParticipationResultRepository, ParticipationResultRepository>();
         return services;
     }
 }

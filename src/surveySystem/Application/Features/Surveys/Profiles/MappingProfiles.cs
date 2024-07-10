@@ -7,6 +7,7 @@ using AutoMapper;
 using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
 using NArchitecture.Core.Persistence.Paging;
+using Application.Features.Surveys.Queries;
 
 namespace Application.Features.Surveys.Profiles;
 
@@ -22,6 +23,7 @@ public class MappingProfiles : Profile
         CreateMap<Survey, DeletedSurveyResponse>().ReverseMap();
         CreateMap<Survey, GetByIdSurveyResponse>().ReverseMap();
         CreateMap<Survey, GetListSurveyListItemDto>().ReverseMap();
+        CreateMap<Member, GetMemberFromAuthResponse>().ReverseMap();
         CreateMap<IPaginate<Survey>, GetListResponse<GetListSurveyListItemDto>>().ReverseMap();
     }
 }

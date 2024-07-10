@@ -29,6 +29,13 @@ public class ParticipationBusinessRules : BaseBusinessRules
         if (participation == null)
             await throwBusinessException(ParticipationsBusinessMessages.ParticipationNotExists);
     }
+    public async Task CheckIfParticipationAlreadyExists(Guid memberId,Guid surveyId)
+    {
+        Participation? participation = await _participationRepository.GetAsync(p => p.MemberId.Equals(memberId) && p.SurveyId.Equals(surveyId));
+        if (participation is not null)
+            await throwBusinessException(ParticipationsBusinessMessages.ParticipationAlreadyExists);
+    }
+
 
     public async Task ParticipationIdShouldExistWhenSelected(Guid id, CancellationToken cancellationToken)
     {

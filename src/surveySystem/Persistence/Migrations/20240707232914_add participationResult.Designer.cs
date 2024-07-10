@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
@@ -11,9 +12,11 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240707232914_add participationResult")]
+    partial class addparticipationResult
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,12 +121,6 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<double?>("PercentNo")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("PercentYes")
-                        .HasColumnType("float");
-
                     b.Property<int>("Result")
                         .HasColumnType("int")
                         .HasColumnName("Result");
@@ -131,12 +128,6 @@ namespace Persistence.Migrations
                     b.Property<Guid>("SurveyId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("SurveyId");
-
-                    b.Property<int>("TotalNoAnswer")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalYesAnswer")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2")
@@ -816,8 +807,8 @@ namespace Persistence.Migrations
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@nArchitecture.kodlama.io",
-                            PasswordHash = new byte[] { 27, 241, 229, 89, 112, 28, 139, 117, 246, 44, 94, 26, 235, 23, 59, 166, 79, 250, 80, 146, 41, 127, 184, 203, 125, 4, 98, 3, 28, 86, 12, 163, 170, 57, 17, 244, 252, 154, 145, 235, 17, 47, 6, 72, 229, 143, 59, 194, 124, 213, 166, 30, 181, 138, 164, 157, 133, 214, 247, 38, 17, 24, 38, 7 },
-                            PasswordSalt = new byte[] { 206, 85, 27, 72, 208, 172, 149, 153, 122, 74, 155, 172, 127, 85, 35, 148, 88, 123, 143, 195, 11, 29, 5, 235, 45, 109, 194, 94, 77, 123, 128, 119, 249, 213, 190, 50, 4, 243, 198, 12, 244, 77, 101, 25, 242, 151, 34, 107, 89, 143, 205, 56, 211, 26, 221, 142, 104, 239, 79, 49, 214, 64, 164, 193, 194, 178, 24, 62, 145, 142, 101, 219, 118, 106, 132, 141, 205, 208, 190, 19, 245, 222, 183, 204, 192, 82, 225, 67, 207, 222, 155, 190, 86, 105, 23, 124, 46, 240, 7, 249, 78, 154, 189, 36, 226, 210, 255, 215, 181, 89, 128, 208, 174, 17, 178, 174, 154, 47, 186, 39, 217, 6, 2, 74, 237, 237, 106, 113 }
+                            PasswordHash = new byte[] { 15, 6, 251, 128, 114, 238, 191, 237, 244, 55, 87, 124, 76, 144, 73, 133, 251, 132, 65, 198, 74, 19, 92, 61, 28, 253, 251, 36, 149, 136, 92, 138, 26, 181, 175, 108, 145, 121, 196, 111, 76, 9, 25, 107, 135, 47, 194, 139, 7, 25, 222, 87, 199, 127, 42, 39, 34, 99, 129, 97, 255, 105, 224, 8 },
+                            PasswordSalt = new byte[] { 75, 249, 73, 43, 115, 143, 221, 213, 160, 55, 142, 77, 173, 128, 186, 223, 190, 8, 123, 144, 106, 39, 78, 129, 7, 124, 206, 187, 131, 171, 115, 100, 52, 148, 219, 86, 85, 27, 44, 115, 246, 196, 108, 175, 86, 76, 196, 182, 236, 74, 239, 20, 110, 54, 206, 149, 99, 222, 81, 252, 191, 249, 42, 178, 49, 238, 60, 239, 226, 147, 248, 216, 224, 164, 12, 27, 52, 82, 130, 1, 173, 78, 11, 117, 7, 190, 172, 235, 62, 126, 150, 254, 105, 117, 188, 188, 118, 217, 77, 250, 28, 96, 220, 116, 74, 232, 47, 122, 56, 69, 233, 101, 111, 198, 26, 119, 246, 65, 182, 140, 223, 157, 110, 87, 213, 112, 39, 221 }
                         });
                 });
 

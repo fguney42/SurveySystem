@@ -17,6 +17,7 @@ public class GetListSurveyQuery : IRequest<GetListResponse<GetListSurveyListItem
 {
     public PageRequest PageRequest { get; set; }
     public string[] Roles => [Admin, Read, OperationClaimsOperationClaims.MemberRole];
+
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListSurveys({PageRequest.PageIndex},{PageRequest.PageSize})";
     public string? CacheGroupKey => "GetSurveys";

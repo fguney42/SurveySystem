@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Questions.Constants.QuestionsOperationClaims;
+using Application.Features.OperationClaims.Constants;
 
 namespace Application.Features.Questions.Commands.Create;
 
@@ -17,7 +18,7 @@ public class CreateQuestionCommand : IRequest<CreatedQuestionResponse>, ISecured
     public string QuestionText { get; set; }
     public Guid SurveyId { get; set; }
 
-    public string[] Roles => [Admin, Write, QuestionsOperationClaims.Create];
+    public string[] Roles => [Admin, Write, QuestionsOperationClaims.Create, OperationClaimsOperationClaims.MemberRole];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

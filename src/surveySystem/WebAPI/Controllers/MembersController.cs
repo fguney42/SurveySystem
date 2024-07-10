@@ -6,6 +6,7 @@ using Application.Features.Members.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Surveys.Queries.GetById;
 
 namespace WebAPI.Controllers;
 
@@ -41,6 +42,13 @@ public class MembersController : BaseController
     public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
         GetByIdMemberResponse response = await Mediator.Send(new GetByIdMemberQuery { Id = id });
+        return Ok(response);
+    }
+
+    [HttpGet("GetMemberFromAuth")]
+    public async Task<IActionResult> GetMemberFromAuth()
+    {
+        var response = await Mediator.Send(new GetMemberFromAuth {UserId = getUserIdFromRequest() });
         return Ok(response);
     }
 
