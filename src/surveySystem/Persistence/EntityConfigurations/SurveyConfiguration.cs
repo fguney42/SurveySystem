@@ -21,17 +21,20 @@ public class SurveyConfiguration : IEntityTypeConfiguration<Survey>
         builder.HasData(_seeds);
     }
 
-    public static IEnumerable<Survey> _seeds
+    public IEnumerable<Survey> _seeds
     {
         get
         {
             var questions = new List<Survey>();
-            questions.Add(new Survey()
+            for (int i = 0; i < 5; i++)
             {
-                Id = Guid.NewGuid(),
-                CreatedDate = DateTime.Now,
-                Title = "Örnek Anket : Enocta Kurum Anketi"
-            });
+                questions.Add(new Survey()
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedDate = DateTime.Now,
+                    Title = $"Örnek Anket : Enocta Kurum Anketi {i++}"
+                });
+            }
             return questions;
         }
     }

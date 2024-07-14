@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20240714141541_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20240714155858_First")]
+    partial class First
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -231,9 +231,21 @@ namespace Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("18b989b2-9dfd-4425-bed1-dc2a47aa6915"),
-                            CreatedDate = new DateTime(2024, 7, 14, 17, 15, 41, 283, DateTimeKind.Local).AddTicks(6971),
-                            Title = "Örnek Anket : Enocta Kurum Anketi"
+                            Id = new Guid("a83faa64-0b8c-4201-b7c8-6d032ea7117b"),
+                            CreatedDate = new DateTime(2024, 7, 14, 18, 58, 58, 530, DateTimeKind.Local).AddTicks(9060),
+                            Title = "Örnek Anket : Enocta Kurum Anketi 0"
+                        },
+                        new
+                        {
+                            Id = new Guid("9cb64abc-3985-44d3-b508-3aebba8ef8ae"),
+                            CreatedDate = new DateTime(2024, 7, 14, 18, 58, 58, 530, DateTimeKind.Local).AddTicks(9101),
+                            Title = "Örnek Anket : Enocta Kurum Anketi 2"
+                        },
+                        new
+                        {
+                            Id = new Guid("818af652-4c75-4ea7-b837-d86ec29b00c9"),
+                            CreatedDate = new DateTime(2024, 7, 14, 18, 58, 58, 530, DateTimeKind.Local).AddTicks(9103),
+                            Title = "Örnek Anket : Enocta Kurum Anketi 4"
                         });
                 });
 
@@ -842,8 +854,8 @@ namespace Persistence.Migrations
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@nArchitecture.kodlama.io",
-                            PasswordHash = new byte[] { 232, 243, 71, 193, 143, 33, 84, 133, 26, 49, 60, 171, 68, 158, 154, 207, 227, 207, 129, 91, 4, 99, 239, 49, 185, 146, 226, 97, 6, 147, 217, 4, 55, 80, 8, 218, 134, 29, 193, 195, 61, 132, 118, 46, 126, 73, 116, 3, 3, 152, 163, 153, 74, 154, 105, 51, 83, 172, 116, 254, 171, 132, 26, 66 },
-                            PasswordSalt = new byte[] { 102, 251, 53, 80, 205, 158, 64, 250, 7, 48, 226, 248, 144, 242, 179, 3, 86, 87, 28, 126, 144, 77, 10, 53, 80, 108, 99, 65, 177, 52, 130, 188, 92, 62, 1, 135, 126, 50, 238, 23, 206, 248, 100, 153, 11, 255, 40, 206, 184, 37, 38, 169, 232, 138, 84, 97, 224, 60, 184, 1, 45, 31, 91, 67, 251, 41, 244, 94, 128, 236, 221, 30, 234, 156, 89, 138, 18, 67, 244, 88, 55, 115, 213, 7, 117, 26, 104, 242, 255, 36, 240, 102, 216, 135, 141, 81, 102, 124, 235, 161, 42, 24, 248, 66, 36, 171, 177, 127, 85, 116, 110, 93, 103, 221, 192, 13, 5, 86, 69, 187, 111, 13, 164, 255, 9, 25, 75, 6 }
+                            PasswordHash = new byte[] { 112, 227, 88, 18, 111, 196, 50, 168, 37, 245, 181, 177, 148, 188, 154, 145, 81, 99, 207, 232, 199, 166, 170, 232, 136, 251, 172, 127, 121, 173, 117, 181, 29, 78, 88, 204, 77, 83, 233, 153, 150, 205, 151, 141, 233, 191, 206, 17, 66, 13, 121, 75, 211, 143, 209, 124, 241, 159, 129, 2, 228, 105, 44, 55 },
+                            PasswordSalt = new byte[] { 222, 52, 5, 35, 24, 3, 59, 68, 81, 206, 47, 25, 131, 253, 206, 147, 204, 48, 193, 220, 89, 193, 235, 127, 56, 171, 169, 250, 16, 174, 38, 128, 229, 109, 102, 190, 186, 155, 208, 62, 114, 135, 4, 207, 245, 122, 183, 214, 62, 49, 52, 47, 26, 226, 230, 114, 165, 47, 214, 12, 186, 31, 154, 94, 168, 128, 196, 194, 110, 196, 96, 217, 191, 154, 72, 164, 100, 133, 174, 225, 231, 35, 87, 123, 160, 226, 83, 1, 12, 204, 212, 222, 170, 67, 131, 70, 48, 218, 232, 74, 71, 232, 153, 22, 232, 215, 121, 36, 9, 71, 31, 247, 81, 161, 114, 252, 245, 75, 154, 98, 194, 30, 208, 160, 94, 233, 110, 155 }
                         });
                 });
 
