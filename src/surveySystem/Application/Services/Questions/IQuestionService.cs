@@ -27,4 +27,5 @@ public interface IQuestionService
     Task<Question> AddAsync(Question question);
     Task<Question> UpdateAsync(Question question);
     Task<Question> DeleteAsync(Question question, bool permanent = false);
+    Task<ICollection<Question>> DeleteRangeAsync(ICollection<Question> questions);
 }

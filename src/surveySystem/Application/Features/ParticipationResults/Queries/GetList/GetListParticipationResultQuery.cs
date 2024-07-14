@@ -9,14 +9,13 @@ using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.ParticipationResults.Constants.ParticipationResultsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ParticipationResults.Queries.GetList;
 
 public class GetListParticipationResultQuery : IRequest<GetListResponse<GetListParticipationResultListItemDto>>, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
-
-
     public bool BypassCache { get; }
     public string? CacheKey => $"GetListParticipationResults({PageRequest.PageIndex},{PageRequest.PageSize})";
     public string? CacheGroupKey => "GetParticipationResults";
@@ -38,7 +37,7 @@ public class GetListParticipationResultQuery : IRequest<GetListResponse<GetListP
             IPaginate<ParticipationResult> participationResults = await _participationResultRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize,
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,include : pr=>pr.Include(pr =>pr.Survey)!.Include(pr=>pr.Question)!
             );
 
             GetListResponse<GetListParticipationResultListItemDto> response = _mapper.Map<GetListResponse<GetListParticipationResultListItemDto>>(participationResults);

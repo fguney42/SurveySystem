@@ -8,4 +8,5 @@ public class GetByIdMemberResponse : IResponse
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public int UserId { get; set; }
+    public string UserEmail { get; set; }
 }

@@ -33,20 +33,24 @@ public class ParticipationResultBusinessRules : BaseBusinessRules
         if (participationResult == null)
             await throwBusinessException(ParticipationResultsBusinessMessages.ParticipationResultNotExists);
     }
-    public async Task IncreaseCountAccordingToAnswer(string answer, ParticipationResult participationResult)
+    public async Task IncreaseCountAccordingToAnswer(string answer, ParticipationResult participationResult, bool isNew=false)
     {
         if (answer is ParticipationResultsBusinessMessages.AnswerYes)
         {
             participationResult.TotalYesAnswer++;
+            if (isNew)
+            participationResult.PercentYes = 100;
         }
         else
         {
-            participationResult.TotalYesAnswer++;
+            if (isNew)
+                participationResult.PercentNo = 100;
+            participationResult.TotalNoAnswer++;
         }
     }
-    public async Task<ParticipationResult?> CheckIfUpdateOrCreateParticipationResult(Guid surveyId,string answer)
+    public async Task<ParticipationResult?> CheckIfUpdateOrCreateParticipationResult(Guid surveyId,Guid?questionId,string answer)
     {
-        ParticipationResult? participationResult = await _participationResultRepository.GetAsync(pr => pr.SurveyId.Equals(surveyId));
+        ParticipationResult? participationResult = await _participationResultRepository.GetAsync(pr => pr.SurveyId.Equals(surveyId) && pr.QuestionId.Equals(questionId));
         if (participationResult is not null)
         {
             participationResult.Result = await _participationResultRepository.IncrementParticipationResult(participationResult.Id);
@@ -58,8 +62,8 @@ public class ParticipationResultBusinessRules : BaseBusinessRules
         }
         else
         {
-            participationResult = new ParticipationResult() { SurveyId = surveyId};
-            await IncreaseCountAccordingToAnswer(answer, participationResult);
+            participationResult = new ParticipationResult() { SurveyId = surveyId,QuestionId = questionId};
+            await IncreaseCountAccordingToAnswer(answer, participationResult,true);
             return await _participationResultRepository.AddAsync(participationResult);   
         }
             

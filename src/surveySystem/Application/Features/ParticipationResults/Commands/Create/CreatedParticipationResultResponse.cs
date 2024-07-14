@@ -9,4 +9,5 @@ public class CreatedParticipationResultResponse : IResponse
     public double PercentYes { get; set; }
     public Guid Id { get; set; }
     public Guid SurveyId { get; set; }
+    public Guid QuestionId { get; set; }
 }

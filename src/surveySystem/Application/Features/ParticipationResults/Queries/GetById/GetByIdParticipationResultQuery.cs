@@ -6,14 +6,15 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.ParticipationResults.Constants.ParticipationResultsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.ParticipationResults.Queries.GetById;
 
-public class GetByIdParticipationResultQuery : IRequest<GetByIdParticipationResultResponse>, ISecuredRequest
+public class GetByIdParticipationResultQuery : IRequest<GetByIdParticipationResultResponse>
 {
     public Guid Id { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    //public string[] Roles => [Admin, Read];
 
     public class GetByIdParticipationResultQueryHandler : IRequestHandler<GetByIdParticipationResultQuery, GetByIdParticipationResultResponse>
     {
@@ -30,7 +31,7 @@ public class GetByIdParticipationResultQuery : IRequest<GetByIdParticipationResu
 
         public async Task<GetByIdParticipationResultResponse> Handle(GetByIdParticipationResultQuery request, CancellationToken cancellationToken)
         {
-            ParticipationResult? participationResult = await _participationResultRepository.GetAsync(predicate: pr => pr.Id == request.Id, cancellationToken: cancellationToken);
+            ParticipationResult? participationResult = await _participationResultRepository.GetAsync(predicate: pr => pr.Id == request.Id, cancellationToken: cancellationToken,include : pr=>pr.Include(pr=>pr.Question)!);
             await _participationResultBusinessRules.ParticipationResultShouldExistWhenSelected(participationResult);
 
             GetByIdParticipationResultResponse response = _mapper.Map<GetByIdParticipationResultResponse>(participationResult);

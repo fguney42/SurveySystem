@@ -21,7 +21,7 @@ public class UpdateParticipationCommand : IRequest<UpdatedParticipationResponse>
     public Guid SurveyId { get; set; }
 
     public string[] Roles => [Admin, Write, ParticipationsOperationClaims.Update, OperationClaimsOperationClaims.MemberRole];
-     
+
     public bool BypassCache { get; }
     public string? CacheKey { get; }
     public string[]? CacheGroupKey => ["GetParticipations"];

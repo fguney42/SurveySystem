@@ -14,7 +14,7 @@ public class GetByIdSurveyQuery : IRequest<GetByIdSurveyResponse>, ISecuredReque
 {
     public Guid Id { get; set; }
 
-    public string[] Roles => [Admin, Read, OperationClaimsOperationClaims.MemberRole];
+    public string[] Roles => [Admin, Read,OperationClaimsOperationClaims.MemberRole];
 
     public class GetByIdSurveyQueryHandler : IRequestHandler<GetByIdSurveyQuery, GetByIdSurveyResponse>
     {

@@ -27,4 +27,5 @@ public interface IParticipationService
     Task<Participation> AddAsync(Participation participation);
     Task<Participation> UpdateAsync(Participation participation);
     Task<Participation> DeleteAsync(Participation participation, bool permanent = false);
+    Task <ICollection<Participation>>DeleteRangeAsync(ICollection<Participation> participations);
 }

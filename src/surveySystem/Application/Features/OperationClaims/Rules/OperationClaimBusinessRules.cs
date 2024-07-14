@@ -24,35 +24,35 @@ public class OperationClaimBusinessRules : BaseBusinessRules
         throw new BusinessException(message);
     }
 
-    public async Task OperationClaimShouldExistWhenSelected(OperationClaim<int>? operationClaim)
+    public async Task OperationClaimShouldExistWhenSelected(OperationClaim<int, int>? operationClaim)
     {
         if (operationClaim == null)
             await throwBusinessException(OperationClaimsMessages.NotExists);
     }
     public async Task OperationClaimNameShouldExistWhenSelected(string name)
     {
-        bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Name == name);
+        bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Name == name, enableTracking: false);
         if (doesExist == false)
             await throwBusinessException(OperationClaimsMessages.NotExists);
     }
 
     public async Task OperationClaimIdShouldExistWhenSelected(int id)
     {
-        bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Id == id);
+        bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Id == id, enableTracking: false);
         if (doesExist)
             await throwBusinessException(OperationClaimsMessages.NotExists);
     }
 
     public async Task OperationClaimNameShouldNotExistWhenCreating(string name)
     {
-        bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Name == name);
+        bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Name == name, enableTracking: false);
         if (doesExist)
             await throwBusinessException(OperationClaimsMessages.AlreadyExists);
     }
 
     public async Task OperationClaimNameShouldNotExistWhenUpdating(int id, string name)
     {
-        bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Id != id && b.Name == name);
+        bool doesExist = await _operationClaimRepository.AnyAsync(predicate: b => b.Id != id && b.Name == name, enableTracking: false);
         if (doesExist)
             await throwBusinessException(OperationClaimsMessages.AlreadyExists);
     }

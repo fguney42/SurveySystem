@@ -86,7 +86,11 @@ namespace Persistence.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("MemberId");
 
-                    b.Property<Guid>("SurveyId")
+                    b.Property<Guid>("QuestionId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("QuestionId");
+
+                    b.Property<Guid?>("SurveyId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("SurveyId");
 
@@ -97,6 +101,8 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("MemberId");
+
+                    b.HasIndex("QuestionId");
 
                     b.HasIndex("SurveyId");
 
@@ -124,6 +130,9 @@ namespace Persistence.Migrations
                     b.Property<double?>("PercentYes")
                         .HasColumnType("float");
 
+                    b.Property<Guid?>("QuestionId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Result")
                         .HasColumnType("int")
                         .HasColumnName("Result");
@@ -143,6 +152,12 @@ namespace Persistence.Migrations
                         .HasColumnName("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("QuestionId")
+                        .IsUnique()
+                        .HasFilter("[QuestionId] IS NOT NULL");
+
+                    b.HasIndex("SurveyId");
 
                     b.ToTable("ParticipationResults", (string)null);
                 });
@@ -209,6 +224,14 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Surveys", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("18b989b2-9dfd-4425-bed1-dc2a47aa6915"),
+                            CreatedDate = new DateTime(2024, 7, 14, 17, 15, 41, 283, DateTimeKind.Local).AddTicks(6971),
+                            Title = "Örnek Anket : Enocta Kurum Anketi"
+                        });
                 });
 
             modelBuilder.Entity("NArchitecture.Core.Security.Entities.EmailAuthenticator<int, int>", b =>
@@ -376,37 +399,37 @@ namespace Persistence.Migrations
                         {
                             Id = 16,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Surveys.Admin"
+                            Name = "Questions.Admin"
                         },
                         new
                         {
                             Id = 17,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Surveys.Read"
+                            Name = "Questions.Read"
                         },
                         new
                         {
                             Id = 18,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Surveys.Write"
+                            Name = "Questions.Write"
                         },
                         new
                         {
                             Id = 19,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Surveys.Create"
+                            Name = "Questions.Create"
                         },
                         new
                         {
                             Id = 20,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Surveys.Update"
+                            Name = "Questions.Update"
                         },
                         new
                         {
                             Id = 21,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Surveys.Delete"
+                            Name = "Questions.Delete"
                         },
                         new
                         {
@@ -418,37 +441,37 @@ namespace Persistence.Migrations
                         {
                             Id = 23,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Questions.Admin"
+                            Name = "Participations.Admin"
                         },
                         new
                         {
                             Id = 24,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Questions.Read"
+                            Name = "Participations.Read"
                         },
                         new
                         {
                             Id = 25,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Questions.Write"
+                            Name = "Participations.Write"
                         },
                         new
                         {
                             Id = 26,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Questions.Create"
+                            Name = "Participations.Create"
                         },
                         new
                         {
                             Id = 27,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Questions.Update"
+                            Name = "Participations.Update"
                         },
                         new
                         {
                             Id = 28,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Questions.Delete"
+                            Name = "Participations.Delete"
                         },
                         new
                         {
@@ -460,37 +483,37 @@ namespace Persistence.Migrations
                         {
                             Id = 30,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Participations.Admin"
+                            Name = "ParticipationResults.Admin"
                         },
                         new
                         {
                             Id = 31,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Participations.Read"
+                            Name = "ParticipationResults.Read"
                         },
                         new
                         {
                             Id = 32,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Participations.Write"
+                            Name = "ParticipationResults.Write"
                         },
                         new
                         {
                             Id = 33,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Participations.Create"
+                            Name = "ParticipationResults.Create"
                         },
                         new
                         {
                             Id = 34,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Participations.Update"
+                            Name = "ParticipationResults.Update"
                         },
                         new
                         {
                             Id = 35,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Participations.Delete"
+                            Name = "ParticipationResults.Delete"
                         },
                         new
                         {
@@ -502,37 +525,37 @@ namespace Persistence.Migrations
                         {
                             Id = 37,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ParticipationResults.Admin"
+                            Name = "OperationClaims.Admin"
                         },
                         new
                         {
                             Id = 38,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ParticipationResults.Read"
+                            Name = "OperationClaims.Read"
                         },
                         new
                         {
                             Id = 39,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ParticipationResults.Write"
+                            Name = "OperationClaims.Write"
                         },
                         new
                         {
                             Id = 40,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ParticipationResults.Create"
+                            Name = "OperationClaims.Create"
                         },
                         new
                         {
                             Id = 41,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ParticipationResults.Update"
+                            Name = "OperationClaims.Update"
                         },
                         new
                         {
                             Id = 42,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "ParticipationResults.Delete"
+                            Name = "OperationClaims.Delete"
                         },
                         new
                         {
@@ -544,43 +567,43 @@ namespace Persistence.Migrations
                         {
                             Id = 44,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Admin"
+                            Name = "Member"
                         },
                         new
                         {
                             Id = 45,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Read"
+                            Name = "Surveys.Admin"
                         },
                         new
                         {
                             Id = 46,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Write"
+                            Name = "Surveys.Read"
                         },
                         new
                         {
                             Id = 47,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Create"
+                            Name = "Surveys.Write"
                         },
                         new
                         {
                             Id = 48,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Update"
+                            Name = "Surveys.Create"
                         },
                         new
                         {
                             Id = 49,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "OperationClaims.Delete"
+                            Name = "Surveys.Update"
                         },
                         new
                         {
                             Id = 50,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Member"
+                            Name = "Surveys.Delete"
                         },
                         new
                         {
@@ -816,8 +839,8 @@ namespace Persistence.Migrations
                             AuthenticatorType = 0,
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@nArchitecture.kodlama.io",
-                            PasswordHash = new byte[] { 27, 241, 229, 89, 112, 28, 139, 117, 246, 44, 94, 26, 235, 23, 59, 166, 79, 250, 80, 146, 41, 127, 184, 203, 125, 4, 98, 3, 28, 86, 12, 163, 170, 57, 17, 244, 252, 154, 145, 235, 17, 47, 6, 72, 229, 143, 59, 194, 124, 213, 166, 30, 181, 138, 164, 157, 133, 214, 247, 38, 17, 24, 38, 7 },
-                            PasswordSalt = new byte[] { 206, 85, 27, 72, 208, 172, 149, 153, 122, 74, 155, 172, 127, 85, 35, 148, 88, 123, 143, 195, 11, 29, 5, 235, 45, 109, 194, 94, 77, 123, 128, 119, 249, 213, 190, 50, 4, 243, 198, 12, 244, 77, 101, 25, 242, 151, 34, 107, 89, 143, 205, 56, 211, 26, 221, 142, 104, 239, 79, 49, 214, 64, 164, 193, 194, 178, 24, 62, 145, 142, 101, 219, 118, 106, 132, 141, 205, 208, 190, 19, 245, 222, 183, 204, 192, 82, 225, 67, 207, 222, 155, 190, 86, 105, 23, 124, 46, 240, 7, 249, 78, 154, 189, 36, 226, 210, 255, 215, 181, 89, 128, 208, 174, 17, 178, 174, 154, 47, 186, 39, 217, 6, 2, 74, 237, 237, 106, 113 }
+                            PasswordHash = new byte[] { 232, 243, 71, 193, 143, 33, 84, 133, 26, 49, 60, 171, 68, 158, 154, 207, 227, 207, 129, 91, 4, 99, 239, 49, 185, 146, 226, 97, 6, 147, 217, 4, 55, 80, 8, 218, 134, 29, 193, 195, 61, 132, 118, 46, 126, 73, 116, 3, 3, 152, 163, 153, 74, 154, 105, 51, 83, 172, 116, 254, 171, 132, 26, 66 },
+                            PasswordSalt = new byte[] { 102, 251, 53, 80, 205, 158, 64, 250, 7, 48, 226, 248, 144, 242, 179, 3, 86, 87, 28, 126, 144, 77, 10, 53, 80, 108, 99, 65, 177, 52, 130, 188, 92, 62, 1, 135, 126, 50, 238, 23, 206, 248, 100, 153, 11, 255, 40, 206, 184, 37, 38, 169, 232, 138, 84, 97, 224, 60, 184, 1, 45, 31, 91, 67, 251, 41, 244, 94, 128, 236, 221, 30, 234, 156, 89, 138, 18, 67, 244, 88, 55, 115, 213, 7, 117, 26, 104, 242, 255, 36, 240, 102, 216, 135, 141, 81, 102, 124, 235, 161, 42, 24, 248, 66, 36, 171, 177, 127, 85, 116, 110, 93, 103, 221, 192, 13, 5, 86, 69, 187, 111, 13, 164, 255, 9, 25, 75, 6 }
                         });
                 });
 
@@ -887,13 +910,36 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Question", "Question")
+                        .WithMany()
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Survey", "Survey")
                         .WithMany("Participations")
+                        .HasForeignKey("SurveyId");
+
+                    b.Navigation("Member");
+
+                    b.Navigation("Question");
+
+                    b.Navigation("Survey");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ParticipationResult", b =>
+                {
+                    b.HasOne("Domain.Entities.Question", "Question")
+                        .WithOne("ParticipationResult")
+                        .HasForeignKey("Domain.Entities.ParticipationResult", "QuestionId");
+
+                    b.HasOne("Domain.Entities.Survey", "Survey")
+                        .WithMany()
                         .HasForeignKey("SurveyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Member");
+                    b.Navigation("Question");
 
                     b.Navigation("Survey");
                 });
@@ -959,6 +1005,11 @@ namespace Persistence.Migrations
                     b.Navigation("OperationClaim");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Question", b =>
+                {
+                    b.Navigation("ParticipationResult");
                 });
 
             modelBuilder.Entity("Domain.Entities.Survey", b =>

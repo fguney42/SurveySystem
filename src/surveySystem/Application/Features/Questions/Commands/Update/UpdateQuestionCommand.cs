@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Transaction;
 using MediatR;
 using static Application.Features.Questions.Constants.QuestionsOperationClaims;
+using Application.Features.OperationClaims.Constants;
 
 namespace Application.Features.Questions.Commands.Update;
 
@@ -18,7 +19,7 @@ public class UpdateQuestionCommand : IRequest<UpdatedQuestionResponse>, ISecured
     public string QuestionText { get; set; }
     public Guid SurveyId { get; set; }
 
-    public string[] Roles => [Admin, Write, QuestionsOperationClaims.Update];
+    public string[] Roles => [Admin, Write, QuestionsOperationClaims.Update, OperationClaimsOperationClaims.MemberRole];
 
     public bool BypassCache { get; }
     public string? CacheKey { get; }

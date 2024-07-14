@@ -6,6 +6,9 @@ using Domain.Entities;
 using NArchitecture.Core.Application.Pipelines.Authorization;
 using MediatR;
 using static Application.Features.Members.Constants.MembersOperationClaims;
+using Microsoft.EntityFrameworkCore;
+using Application.Features.OperationClaims.Constants;
+using NArchitecture.Core.Application.Pipelines.Caching;
 
 namespace Application.Features.Members.Queries.GetById;
 
@@ -13,7 +16,8 @@ public class GetByIdMemberQuery : IRequest<GetByIdMemberResponse>, ISecuredReque
 {
     public Guid Id { get; set; }
 
-    public string[] Roles => [Admin, Read];
+    public string[] Roles => [Admin, Read, OperationClaimsOperationClaims.MemberRole];
+
 
     public class GetByIdMemberQueryHandler : IRequestHandler<GetByIdMemberQuery, GetByIdMemberResponse>
     {
@@ -30,7 +34,7 @@ public class GetByIdMemberQuery : IRequest<GetByIdMemberResponse>, ISecuredReque
 
         public async Task<GetByIdMemberResponse> Handle(GetByIdMemberQuery request, CancellationToken cancellationToken)
         {
-            Member? member = await _memberRepository.GetAsync(predicate: m => m.Id == request.Id, cancellationToken: cancellationToken);
+            Member? member = await _memberRepository.GetAsync(predicate: m => m.Id == request.Id, cancellationToken: cancellationToken, include : m => m.Include(m=> m.User)!);
             await _memberBusinessRules.MemberShouldExistWhenSelected(member);
 
             GetByIdMemberResponse response = _mapper.Map<GetByIdMemberResponse>(member);

@@ -1,48 +1,40 @@
-﻿//using Application.Features.Members.Queries.GetById;
-//using Application.Features.Members.Rules;
-//using Application.Features.Users.Commands.UpdateFromAuth;
-//using Application.Features.Users.Rules;
-//using Application.Services.AuthService;
-//using Application.Services.Repositories;
-//using AutoMapper;
-//using Domain.Entities;
-//using MediatR;
-//using NArchitecture.Core.Security.Entities;
-//using NArchitecture.Core.Security.Hashing;
+﻿using Application.Features.Surveys.Constants;
+using Application.Features.Surveys.Rules;
+using Application.Services.Repositories;
+using AutoMapper;
+using Domain.Entities;
+using NArchitecture.Core.Application.Pipelines.Authorization;
+using MediatR;
+using static Application.Features.Surveys.Constants.SurveysOperationClaims;
+using Application.Features.OperationClaims.Constants;
+using Application.Features.Members.Queries;
 
-//namespace Application.Features.Members.Queries.GetFromAuth;
+namespace Application.Features.Surveys.Members.GetById;
 
-//public class GetMemberFromAuth : IRequest<GetByIdMemberResponse>
-//{
-//    public int UserId { get; set; }
+public class GetMemberFromAuth : IRequest<GetMemberFromAuthResponse>, ISecuredRequest
+{
+    public int UserId { get; set; }
 
-//    public class GetMemberFromAuthCommandHandler : MediatR.IRequestHandler<GetMemberFromAuth, GetMemberFromAuthResponse>
-//    {
-//        private readonly IMemberRepository _memberRepository;
-//        private readonly IMapper _mapper;
-//        private readonly MemberBusinessRules _memberBusinessRules;
-//        private readonly IAuthService _authService;
+    public string[] Roles => [Admin, Read, OperationClaimsOperationClaims.MemberRole];
 
-//        public GetMemberFromAuthCommandHandler(
-//            IMemberRepository memberRepository,
-//            IMapper mapper,
-//            IAuthService authService,
-//            MemberBusinessRules memberBusinessRules)
-//        {
-//            _memberRepository = memberRepository;
-//            _mapper = mapper;
-//            _authService = authService;
-//            _memberBusinessRules = memberBusinessRules;
-//        }
+    public class GetMemberFromAuthHandler : IRequestHandler<GetMemberFromAuth, GetMemberFromAuthResponse>
+    {
+        private readonly IMapper _mapper;
+        private readonly IMemberRepository _memberRepository;
+        private readonly SurveyBusinessRules _surveyBusinessRules;
 
-//        public async Task<GetMemberFromAuthResponse> Handle(GetMemberFromAuth request, CancellationToken cancellationToken)
-//        {
-//            Member? member = await _memberRepository.GetAsync(predicate: m => m.UserId == request.UserId, cancellationToken: cancellationToken);
-//            await _memberBusinessRules.MemberShouldExistWhenSelected(member);
+        public GetMemberFromAuthHandler(IMapper mapper, IMemberRepository memberRepository)
+        {
+            _mapper = mapper;
+            _memberRepository = memberRepository;
+        }
 
-//            GetMemberFromAuthResponse response = _mapper.Map<GetMemberFromAuthResponse>(member);
-//            return response;
-//        }
-//    }
-//}
+        public async Task<GetMemberFromAuthResponse> Handle(GetMemberFromAuth request, CancellationToken cancellationToken)
+        {
+            Member? survey = await _memberRepository.GetAsync(predicate: m => m.UserId == request.UserId, cancellationToken: cancellationToken);
 
+            GetMemberFromAuthResponse response = _mapper.Map<GetMemberFromAuthResponse>(survey);
+            return response;
+        }
+    }
+}

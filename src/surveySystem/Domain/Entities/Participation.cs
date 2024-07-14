@@ -13,8 +13,10 @@ public class Participation : Entity<Guid>
     public string Answer { get; set; }
     public virtual Member? Member { get; set; }
     public virtual Survey? Survey { get; set; }
-    public Guid MemberId { get; set; }
-    public Guid SurveyId { get; set; }
+    public virtual Question? Question { get; set; }
+    public Guid QuestionId { get; set; }
+    public Guid MemberId { get; set; }  
+    public Guid? SurveyId { get; set; }
     public Participation()
     {
     }

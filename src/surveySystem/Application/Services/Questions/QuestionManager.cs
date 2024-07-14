@@ -74,4 +74,9 @@ public class QuestionManager : IQuestionService
 
         return deletedQuestion;
     }
+
+    public async Task<ICollection<Question>> DeleteRangeAsync(ICollection<Question> questions)
+    {
+        return await _questionRepository.DeleteRangeAsync(questions, true);
+    }
 }

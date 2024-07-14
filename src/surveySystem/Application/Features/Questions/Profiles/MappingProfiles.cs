@@ -7,6 +7,7 @@ using AutoMapper;
 using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
 using NArchitecture.Core.Persistence.Paging;
+using Application.Features.Questions.Queries.GetDynamic;
 
 namespace Application.Features.Questions.Profiles;
 
@@ -22,6 +23,8 @@ public class MappingProfiles : Profile
         CreateMap<Question, DeletedQuestionResponse>().ReverseMap();
         CreateMap<Question, GetByIdQuestionResponse>().ReverseMap();
         CreateMap<Question, GetListQuestionListItemDto>().ReverseMap();
+        CreateMap<Question,GetDynamicQuestionListItemDto>().ReverseMap();
+        CreateMap<IPaginate<Question>,GetListResponse<GetDynamicQuestionListItemDto>>().ReverseMap();
         CreateMap<IPaginate<Question>, GetListResponse<GetListQuestionListItemDto>>().ReverseMap();
     }
 }

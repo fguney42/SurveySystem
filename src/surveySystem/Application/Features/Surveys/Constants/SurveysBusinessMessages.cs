@@ -5,4 +5,5 @@ public static class SurveysBusinessMessages
     public const string SectionName = "Survey";
 
     public const string SurveyNotExists = "SurveyNotExists";
+    public const string SurveyAlreadyExists = "SurveyAlreadyExists";
 }

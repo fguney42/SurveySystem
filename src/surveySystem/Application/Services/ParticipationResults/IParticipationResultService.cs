@@ -27,6 +27,6 @@ public interface IParticipationResultService
     Task<ParticipationResult> AddAsync(ParticipationResult participationResult);
     Task<ParticipationResult> UpdateAsync(ParticipationResult participationResult);
     Task<ParticipationResult> DeleteAsync(ParticipationResult participationResult, bool permanent = false);
+    Task<ICollection<ParticipationResult>> DeleteRangeAsync(ICollection<ParticipationResult> participationResults);
 
-    //public Task<ParticipationResult> UpdateOrCreateByParticipationResult(Guid surveyId);
 }

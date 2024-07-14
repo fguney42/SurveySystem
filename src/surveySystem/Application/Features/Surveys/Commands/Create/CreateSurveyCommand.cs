@@ -39,8 +39,9 @@ public class CreateSurveyCommand : IRequest<CreatedSurveyResponse>, ISecuredRequ
 
         public async Task<CreatedSurveyResponse> Handle(CreateSurveyCommand request, CancellationToken cancellationToken)
         {
+            await _surveyBusinessRules.CheckIfSurveyAlreadyExists(request.Title);
             Survey survey = _mapper.Map<Survey>(request);
-
+            
             await _surveyRepository.AddAsync(survey);
 
             CreatedSurveyResponse response = _mapper.Map<CreatedSurveyResponse>(survey);

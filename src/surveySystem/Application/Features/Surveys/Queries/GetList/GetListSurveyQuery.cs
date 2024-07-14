@@ -16,6 +16,7 @@ namespace Application.Features.Surveys.Queries.GetList;
 public class GetListSurveyQuery : IRequest<GetListResponse<GetListSurveyListItemDto>>, ISecuredRequest, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
+
     public string[] Roles => [Admin, Read, OperationClaimsOperationClaims.MemberRole];
 
     public bool BypassCache { get; }

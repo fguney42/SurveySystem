@@ -6,7 +6,7 @@ using Application.Features.Members.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
-using Application.Features.Surveys.Queries.GetById;
+using Application.Features.Surveys.Members.GetById;
 
 namespace WebAPI.Controllers;
 

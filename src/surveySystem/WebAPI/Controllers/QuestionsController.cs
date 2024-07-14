@@ -6,6 +6,8 @@ using Application.Features.Questions.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Questions.Queries.GetDynamic;
+using NArchitecture.Core.Persistence.Dynamic;
 
 namespace WebAPI.Controllers;
 
@@ -49,6 +51,13 @@ public class QuestionsController : BaseController
     {
         GetListQuestionQuery getListQuestionQuery = new() { PageRequest = pageRequest };
         GetListResponse<GetListQuestionListItemDto> response = await Mediator.Send(getListQuestionQuery);
+        return Ok(response);
+    }
+    [HttpPost("Dynamic")]
+    public async Task<IActionResult> GetDynamic([FromQuery] PageRequest pageRequest,[FromBody] DynamicQuery dynamicQuery)
+    {
+        GetDynamicQuestionQuery dynamicQuestionQuery = new() {  DynamicQuery = dynamicQuery ,PageRequest = pageRequest};
+        var response = await Mediator.Send(dynamicQuestionQuery);
         return Ok(response);
     }
 }

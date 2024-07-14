@@ -17,6 +17,7 @@ namespace Application.Features.ParticipationResults.Commands.Create;
 public class CreateParticipationResultCommand : IRequest<CreatedParticipationResultResponse>, ISecuredRequest,ICacheRemoverRequest, ILoggableRequest, ITransactionalRequest
 {
     public Guid SurveyId { get; set; }
+    public Guid? QuestionId { get; set; }
     public string Answer {  get; set; }
     public string[] Roles => [Admin, Write, ParticipationResultsOperationClaims.Create,OperationClaimsOperationClaims.MemberRole];
 
@@ -42,7 +43,7 @@ public class CreateParticipationResultCommand : IRequest<CreatedParticipationRes
         {
             ParticipationResult participationResult = _mapper.Map<ParticipationResult>(request);
 
-            await _participationResultBusinessRules.CheckIfUpdateOrCreateParticipationResult(request.SurveyId,request.Answer);
+            await _participationResultBusinessRules.CheckIfUpdateOrCreateParticipationResult(request.SurveyId,request.QuestionId,request.Answer);
 
             CreatedParticipationResultResponse response = _mapper.Map<CreatedParticipationResultResponse>(participationResult);
             return response;

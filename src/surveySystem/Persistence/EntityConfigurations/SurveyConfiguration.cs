@@ -1,6 +1,7 @@
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Nest;
 
 namespace Persistence.EntityConfigurations;
 
@@ -17,5 +18,21 @@ public class SurveyConfiguration : IEntityTypeConfiguration<Survey>
         builder.Property(s => s.DeletedDate).HasColumnName("DeletedDate");
 
         builder.HasQueryFilter(s => !s.DeletedDate.HasValue);
+        builder.HasData(_seeds);
+    }
+
+    public static IEnumerable<Survey> _seeds
+    {
+        get
+        {
+            var questions = new List<Survey>();
+            questions.Add(new Survey()
+            {
+                Id = Guid.NewGuid(),
+                CreatedDate = DateTime.Now,
+                Title = "Örnek Anket : Enocta Kurum Anketi"
+            });
+            return questions;
+        }
     }
 }

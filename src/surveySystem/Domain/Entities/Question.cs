@@ -12,6 +12,7 @@ public class Question : Entity<Guid>
     public string QuestionText { get; set; }
     public virtual Survey? Survey { get; set; }
     public Guid SurveyId { get; set; }
+    public ParticipationResult? ParticipationResult { get; set; }
     public Question()
     {
     }

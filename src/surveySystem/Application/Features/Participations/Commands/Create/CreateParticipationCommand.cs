@@ -20,6 +20,7 @@ public class CreateParticipationCommand : MediatR.IRequest<CreatedParticipationR
     public string Answer { get; set; }
     public Guid MemberId { get; set; }
     public Guid SurveyId { get; set; }
+    public Guid QuestionId { get; set; }
 
     public string[] Roles => [Admin, Write, ParticipationsOperationClaims.Create, OperationClaimsOperationClaims.MemberRole];
 
@@ -44,7 +45,7 @@ public class CreateParticipationCommand : MediatR.IRequest<CreatedParticipationR
 
         public async Task<CreatedParticipationResponse> Handle(CreateParticipationCommand request, CancellationToken cancellationToken)
         {
-            await _participationBusinessRules.CheckIfParticipationAlreadyExists(request.MemberId, request.SurveyId);
+            await _participationBusinessRules.CheckIfParticipationAlreadyExists(request.MemberId, request.SurveyId,request.QuestionId);
             Participation participation = _mapper.Map<Participation>(request); 
             await _participationRepository.AddAsync(participation);
             CreatedParticipationResponse response = _mapper.Map<CreatedParticipationResponse>(participation);

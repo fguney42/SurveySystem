@@ -10,6 +10,7 @@ using NArchitecture.Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Questions.Constants.QuestionsOperationClaims;
 using Application.Features.OperationClaims.Constants;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Questions.Queries.GetList;
 
@@ -40,7 +41,8 @@ public class GetListQuestionQuery : IRequest<GetListResponse<GetListQuestionList
             IPaginate<Question> questions = await _questionRepository.GetListAsync(
                 index: request.PageRequest.PageIndex,
                 size: request.PageRequest.PageSize, 
-                cancellationToken: cancellationToken
+                cancellationToken: cancellationToken,
+                include : q => q.Include(q => q.Survey).Include(q=>q.ParticipationResult)!
             );
 
             GetListResponse<GetListQuestionListItemDto> response = _mapper.Map<GetListResponse<GetListQuestionListItemDto>>(questions);

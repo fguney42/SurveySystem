@@ -62,13 +62,6 @@ public class ParticipationResultManager : IParticipationResultService
 
         return addedParticipationResult;
     }
-
-    //public async Task<ParticipationResult> UpdateOrCreateByParticipationResult(Guid surveyId)
-    //{
-    //    ParticipationResult? participationResult = await _participationResultBusinessRules.CheckIfUpdateOrCreateParticipationResult(surveyId);
-
-    //    return participationResult;
-    //}
     public async Task<ParticipationResult> UpdateAsync(ParticipationResult participationResult)
     {
         ParticipationResult updatedParticipationResult = await _participationResultRepository.UpdateAsync(participationResult);
@@ -81,5 +74,9 @@ public class ParticipationResultManager : IParticipationResultService
         ParticipationResult deletedParticipationResult = await _participationResultRepository.DeleteAsync(participationResult);
 
         return deletedParticipationResult;
+    }
+    public async Task<ICollection<ParticipationResult>> DeleteRangeAsync(ICollection<ParticipationResult> participationResults)
+    {
+        return await _participationResultRepository.DeleteRangeAsync(participationResults,true);
     }
 }

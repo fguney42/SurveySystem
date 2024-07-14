@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Responses;
 using NArchitecture.Core.Persistence.Paging;
 using MediatR;
 using static Application.Features.Participations.Constants.ParticipationsOperationClaims;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Participations.Queries.GetList;
 

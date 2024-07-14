@@ -74,4 +74,9 @@ public class ParticipationManager : IParticipationService
 
         return deletedParticipation;
     }
+
+    public async Task<ICollection<Participation>> DeleteRangeAsync(ICollection<Participation> participations)
+    {
+        return await _participationRepository.DeleteRangeAsync(participations,true);
+    }
 }
