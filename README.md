@@ -47,16 +47,7 @@ Bu sistem, kullanıcıların anketler oluşturabileceği, mevcut anketlere katı
 ---
 
 ## :pencil2: **Teknolojiler:**
-- **Backend:** Node.js, Express.js
-- **Frontend:** React, HTML5, CSS3
-- **Veritabanı:** MongoDB
+- **Backend:** C#
+- **Frontend:** Angular,TypeScript
+- **Veritabanı:** MsSql
 - **Authentication:** JWT Token
-
----
-
-## :rocket: **Kurulum ve Kullanım**
-
-1. Bu projeyi yerel makinenize klonlayın:
-
-   ```bash
-   git clone https://github.com/kullanici/anket-sistemi.git
